@@ -22,7 +22,13 @@ Create an empty directory and cd into it. Then execute the following commands in
 
 ![build burger interface](readme/burger-builder.png "build burger interface")
 
-![order burger interface](readme/burger-order.png "build order interface")
+![order burger interface](readme/burger-order.png "order burger interface")
+
+When the screen gets smaller:
+
+<img style="display:inline" src="readme/burger-builder-responsive.png" alt="build burger interface on mobile" />
+
+<img style="display:inline" src="readme/burger-order-responsive.png" alt="order burger interface on mobile" />
 
 ****
 
