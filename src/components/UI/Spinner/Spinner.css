@@ -1,3 +1,9 @@
+.loader-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .loader {
     -webkit-animation: rotator 1.4s linear infinite;
             animation: rotator 1.4s linear infinite;

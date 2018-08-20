@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './Spinner.css';
 
 const Spinner = () => (
-    <div className="loader-container">
+    <div className={classes["loader-container"]}>
         <svg
             className={classes.loader}
             width="65px"
