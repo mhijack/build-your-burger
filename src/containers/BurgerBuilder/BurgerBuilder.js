@@ -27,6 +27,8 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount = () => {
+        // console.log(this.props);
+
         axios
             .get(
                 'https://builder-your-burger-react.firebaseio.com/ingredients.json'
@@ -59,37 +61,18 @@ class BurgerBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
-        // Show spinner while sending data
-        this.setState({ loading: true });
+        // Pushing history state
+        const queryParams = [];
+        for (let ing in this.state.ingredients) {
+            queryParams.push(`${encodeURIComponent(ing)}=${encodeURIComponent(this.state.ingredients[ing])}`);
+        }
+        queryParams.push(`price=${this.state.totalPrice}`)
+        const queryString = queryParams.join('&');
 
-        // Send data to database
-        const { ingredients, totalPrice } = this.state;
-        const order = {
-            ingredients,
-            totalPrice,
-            customer: {
-                name: 'Jianyuan Chen',
-                address: {
-                    street: 'teststreet',
-                    city: 'Vancouver',
-                    zipCode: 'V6P5V8',
-                    country: 'Canada'
-                },
-                email: 'jack@gmail.com'
-            },
-            deliveryMethod: 'express'
-        };
-
-        // Firebase database requires suffix '.json'
-        axios
-            .post('/orders.json', order)
-            .then(res => {
-                // Remove loader
-                this.setState({ loading: false, purchasing: false });
-            })
-            .catch(err => {
-                this.setState({ loading: false, purchasing: false });
-            });
+        this.props.history.push({
+            pathname: '/checkout',
+            search: `?${queryString}`,
+        });
     };
 
     addIngredientHandler = type => {

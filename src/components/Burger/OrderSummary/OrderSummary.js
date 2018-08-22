@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button';
 class OrderSummary extends Component {
 	// once Modal component has checked shouldComponentUpdate, this will automatically update, therefore this can now be a functional stateless component.
 	componentWillUpdate() {
-		console.log('[OrderSummary] will update')
+		// console.log('[OrderSummary] will update')
 	}
 
 	render() {
