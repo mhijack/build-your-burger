@@ -25,3 +25,15 @@
     /* outline: none;
     background-color: #ccc; */
 }
+
+.Invalid {
+    border: 1px solid red;
+    background-color: #fda49a;
+}
+
+.ErrorMessage {
+    width: 100%;
+    margin: 0;
+    text-align: right;
+    font-size: 10px;
+}
