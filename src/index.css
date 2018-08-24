@@ -2,6 +2,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'open sans';
+  height: 100%;
+  box-sizing: border-box;
 }
 ul {
   list-style-type: none;
