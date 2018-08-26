@@ -2,6 +2,7 @@
     text-align: center;
     width: 80%;
     margin: auto;
+    /* margin-top: 72px; */
 }
 
 @media (min-width: 600px) {

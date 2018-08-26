@@ -23,7 +23,7 @@ class Checkout extends Component {
         if (this.props.ingredients) {
             const purchasedRedirect = this.props.purchased ? <Redirect to="/" /> : null;
             summary = (
-                <Aux>
+                <div style={{paddingTop: '72px'}}>
                     {purchasedRedirect}
                     <CheckoutSummary
                         ingredients={this.props.ingredients}
@@ -33,21 +33,13 @@ class Checkout extends Component {
                     <Route
                     path={`${this.props.match.url}/contact-data`}
                     component={ContactData} />
-                </Aux>
+                </div>
             );
         }
 
         return (
             <div>
                 {summary}
-
-                {/* // render={props => (
-                //     <ContactData
-                //         {...props}
-                //         ingredients={this.props.ingredients}
-                //         price={this.props.price}
-                //     />
-                // )} */}
             </div>
         );
     };

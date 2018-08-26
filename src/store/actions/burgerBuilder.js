@@ -37,7 +37,7 @@ export const initIngredients = () => {
                 'https://builder-your-burger-react.firebaseio.com/ingredients.json'
             )
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 dispatch(setIngredients(response.data));
             })
             .catch(error => {

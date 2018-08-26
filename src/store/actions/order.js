@@ -34,8 +34,13 @@ export const purchase = payload => {
     return (dispatch, getState) => {
         // Firebase database requires suffix '.json'
         dispatch(purchaseStart());
+
+        // extract token from payload and do not save it in DB
+        const token = payload.token;
+        payload.token = null;
+
         axios
-            .post('/orders.json', payload)
+            .post(`/orders.json?auth=${token}`, payload)
             .then(res => {
                 // Remove loader
                 console.log(payload);
@@ -68,10 +73,11 @@ export const fetchOrdersStart = () => {
     };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = token => {
     return (dispatch, getState) => {
+        // Only allow authorized user to access /order.json
         axios
-            .get('/orders.json')
+            .get(`/orders.json?auth=${token}`)
             .then(res => {
                 dispatch(fetchOrdersStart());
 
