@@ -9,6 +9,7 @@ import classes from './ContactData.css';
 
 import { connect } from 'react-redux';
 import * as orderActions from '../../../store/actions/index';
+import * as burgerBuilderActions from '../../../store/actions/burgerBuilder';
 
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
@@ -158,6 +159,7 @@ class ContactData extends Component {
             token: this.props.token
         };
         this.props.onOrderBurger(order);
+        this.props.initIngredients();
     };
 
     handleBlur = identifier => {
@@ -228,7 +230,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onOrderBurger: orderData => dispatch(orderActions.purchase(orderData))
+    onOrderBurger: orderData => dispatch(orderActions.purchase(orderData)),
+    initIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
 });
 
 export default connect(

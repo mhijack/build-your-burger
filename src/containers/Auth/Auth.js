@@ -45,6 +45,14 @@ class Auth extends Component {
         isSignUp: true
     };
 
+    componentDidMount = () => {
+        // if not building a burger and not signed in, redirect to home page after signing in
+        // otherwise, if building a burger, redirect to /checkout
+        if (!this.props.building && this.props.autoRedirectPath) {
+            this.onSetAuthRedirectPath();
+        }
+    }
+
     // value: input value
     validate = (value, rules) => {
         // Set isValid initially to true. Then check both rule and isValid
@@ -150,9 +158,15 @@ class Auth extends Component {
         if (this.props.error) {
             errorMsg = <p>{this.props.error.message}</p>;
         }
+
+        let autoRedirect = null;
+        if (this.props.isAuthenticated) {
+            autoRedirect = <Redirect to={this.props.authRedirectPath} />;
+        }
+
         return (
             <div className={classes.Auth}>
-                {this.props.isAuthenticated ? <Redirect to="/" /> : null}
+                {autoRedirect}
 
                 {errorMsg}
                 <form onSubmit={this.handleSubmit}>
@@ -171,13 +185,16 @@ const mapStateToProps = state => {
     return {
         loading: state.authReducer.loading,
         error: state.authReducer.error,
-        isAuthenticated: state.authReducer.token !== null
+        isAuthenticated: state.authReducer.token !== null,
+        building: state.burgerBuilderReducer.building,
+        authRedirectPath: state.authReducer.redirectPath,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (...args) => dispatch(actions.auth(...args))
+        onAuth: (...args) => dispatch(actions.auth(...args)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
     };
 };
 
