@@ -37,7 +37,6 @@ export const purchase = payload => {
 
         // extract token from payload and do not save it in DB
         const token = payload.token;
-        payload.token = null;
 
         axios
             .post(`/orders.json?auth=${token}`, payload)
@@ -73,11 +72,12 @@ export const fetchOrdersStart = () => {
     };
 };
 
-export const fetchOrders = token => {
+export const fetchOrders = (token, userId) => {
     return (dispatch, getState) => {
+        const queryParams = `?auth=${token}&orderBy="userId"&equalTo"${userId}"`
         // Only allow authorized user to access /order.json
         axios
-            .get(`/orders.json?auth=${token}`)
+            .get(`/orders.json${queryParams}`)
             .then(res => {
                 dispatch(fetchOrdersStart());
 

@@ -45,7 +45,7 @@ class Auth extends Component {
         isSignUp: true
     };
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         // if not building a burger and not signed in, redirect to home page after signing in
         // otherwise, if building a burger, redirect to /checkout
         if (!this.props.building && this.props.autoRedirectPath) {
