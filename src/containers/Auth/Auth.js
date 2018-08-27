@@ -4,6 +4,7 @@ import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 import classes from './Auth.css';
+import { validate } from '../../utilities/utility';
 
 import { Redirect } from 'react-router-dom';
 
@@ -53,55 +54,13 @@ class Auth extends Component {
         }
     }
 
-    // value: input value
-    validate = (value, rules) => {
-        // Set isValid initially to true. Then check both rule and isValid
-        let isValid = true;
-        value = value.trim();
-
-        if (rules.required) {
-            isValid = value !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        return isValid;
-    };
-
-    // value: input value
-    validate = (value, rules) => {
-        // Set isValid initially to true. Then check both rule and isValid
-        let isValid = true;
-        value = value.trim();
-
-        if (rules.required) {
-            isValid = value !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        return isValid;
-    };
-
     handleInputChange = (event, ctrlName) => {
         const updatedCtrls = {
             ...this.state.controls,
             [ctrlName]: {
                 ...this.state.controls[ctrlName],
                 value: event.target.value,
-                valid: this.validate(
+                valid: validate(
                     event.target.value,
                     this.state.controls[ctrlName].validation
                 ),

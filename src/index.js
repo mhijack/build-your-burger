@@ -19,11 +19,19 @@ const rootReducer = combineReducers({
     burgerBuilderReducer,
     orderReducer,
     authReducer
-})
+});
 
 // Redux
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+// restrict Redux devtool only in development server
+const composeEnhancers =
+    process.env.NODE_ENV === 'development'
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+        : null;
+
+const store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(thunk))
+);
 
 const app = (
     <Provider store={store}>

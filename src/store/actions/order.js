@@ -42,7 +42,6 @@ export const purchase = payload => {
             .post(`/orders.json?auth=${token}`, payload)
             .then(res => {
                 // Remove loader
-                console.log(payload);
                 dispatch(purchaseSuccess(payload));
             })
             .catch(err => {
@@ -74,7 +73,7 @@ export const fetchOrdersStart = () => {
 
 export const fetchOrders = (token, userId) => {
     return (dispatch, getState) => {
-        const queryParams = `?auth=${token}&orderBy="userId"&equalTo"${userId}"`
+        const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
         // Only allow authorized user to access /order.json
         axios
             .get(`/orders.json${queryParams}`)

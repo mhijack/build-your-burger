@@ -6,6 +6,7 @@ import Input from '../../../components/UI/Input/Input';
 
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.css';
+import { validate } from '../../../utilities/utility';
 
 import { connect } from 'react-redux';
 import * as orderActions from '../../../store/actions/index';
@@ -96,28 +97,7 @@ class ContactData extends Component {
                 valid: true
             }
         },
-        formIsValid: false,
-    };
-
-    // value: input value
-    validate = (value, rules) => {
-        // Set isValid initially to true. Then check both rule and isValid
-        let isValid = true;
-        value = value.trim();
-
-        if (rules.required) {
-            isValid = value !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        return isValid;
+        formIsValid: false
     };
 
     handleInputChange = (event, inputIdentifier) => {
@@ -125,7 +105,7 @@ class ContactData extends Component {
         const updatedInput = Object.assign({}, updatedFormEls[inputIdentifier]);
 
         updatedInput.value = event.target.value;
-        updatedInput.valid = this.validate(
+        updatedInput.valid = validate(
             event.target.value,
             updatedInput.validation
         );
@@ -164,7 +144,6 @@ class ContactData extends Component {
     };
 
     handleBlur = identifier => {
-        console.log('blurred');
         const form = { ...this.state.orderForm };
         const formEl = { ...form[identifier] };
         formEl.touched = true;
@@ -233,7 +212,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onOrderBurger: orderData => dispatch(orderActions.purchase(orderData)),
-    initIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
+    initIngredients: () => dispatch(burgerBuilderActions.initIngredients())
 });
 
 export default connect(
