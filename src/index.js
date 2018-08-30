@@ -28,9 +28,16 @@ const composeEnhancers =
         ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
         : null;
 
+// Ensuring app doesn't crash in production env
+let middleware = applyMiddleware(thunk);
+
+if (composeEnhancers) {
+    middleware = composeEnhancers(applyMiddleware(thunk));
+}
+
 const store = createStore(
     rootReducer,
-    composeEnhancers(applyMiddleware(thunk))
+    middleware
 );
 
 const app = (
